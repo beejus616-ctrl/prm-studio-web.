@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabajos — PRM Studio</title>
+<meta name="description" content="Páginas web que PRM Studio ha construido para negocios locales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#1a1a1a;
+    --charcoal-soft:#2b2b2b;
+    --off-white:#f4f4f2;
+    --white:#ffffff;
+    --muted:#8a8a8a;
+    --line:#e4e4e0;
+    --line-dark:#3a3a3a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--white);
+    color:var(--charcoal);
+    line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .eyebrow{font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
+  .nav-mark{display:flex;align-items:center;gap:12px;}
+  .nav-mark .box{width:34px;height:34px;border:1.4px solid var(--charcoal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:.1em;}
+  .nav-mark .word{font-size:12px;letter-spacing:.24em;color:var(--muted);font-weight:600;}
+  nav ul{display:flex;gap:36px;list-style:none;}
+  nav ul li a{font-size:13.5px;font-weight:500;color:var(--charcoal);opacity:.75;transition:opacity .2s;}
+  nav ul li a:hover{opacity:1;}
+  nav ul li a.active{opacity:1;border-bottom:1.4px solid var(--charcoal);padding-bottom:3px;}
+  .nav-cta{font-size:13px;font-weight:600;background:var(--charcoal);color:var(--white);padding:10px 20px;border:1px solid var(--charcoal);transition:.2s;}
+  .nav-cta:hover{background:var(--white);color:var(--charcoal);}
+
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+  .nav-burger span{display:block;width:100%;height:1.6px;background:var(--charcoal);transition:transform .3s cubic-bezier(.6,.2,.2,1), opacity .2s ease;}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.6px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg);}
+  .mobile-nav{display:none;max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.6,.2,.2,1);background:rgba(255,255,255,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .mobile-nav.open{max-height:420px;}
+  .mobile-nav ul{list-style:none;padding:8px 32px 22px;}
+  .mobile-nav li{opacity:0;transform:translateY(-6px);transition:opacity .35s ease, transform .35s ease;}
+  .mobile-nav.open li{opacity:1;transform:translateY(0);}
+  .mobile-nav.open li:nth-child(1){transition-delay:.06s;}
+  .mobile-nav.open li:nth-child(2){transition-delay:.11s;}
+  .mobile-nav.open li:nth-child(3){transition-delay:.16s;}
+  .mobile-nav.open li:nth-child(4){transition-delay:.21s;}
+  .mobile-nav.open li:nth-child(5){transition-delay:.26s;}
+  .mobile-nav a{display:block;padding:13px 0;font-size:15px;font-weight:600;color:var(--charcoal);border-bottom:1px solid var(--line);}
+  .mobile-nav li:last-child a{border-bottom:none;}
+
+  /* ---------- PAGE HEAD ---------- */
+  .page-head{padding:72px 0 56px;border-bottom:1px solid var(--line);}
+  .page-head .eyebrow{display:block;margin-bottom:18px;}
+  .page-head h1{font-size:clamp(32px,4.6vw,52px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;max-width:640px;}
+  .page-head p{margin-top:18px;color:var(--muted);font-size:16px;max-width:560px;}
+
+  /* ---------- PORTFOLIO ---------- */
+  .portfolio-section{padding:72px 0 120px;}
+  .portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
+  .portfolio-card{display:block;border:1px solid var(--line);background:var(--white);transition:border-color .2s, transform .2s;}
+  .portfolio-card:hover{border-color:var(--charcoal);}
+  .portfolio-frame{background:var(--charcoal);}
+  .portfolio-dots{display:flex;gap:6px;padding:12px 14px;}
+  .portfolio-dots span{width:8px;height:8px;border-radius:50%;background:#4a4a4a;display:block;}
+  .portfolio-shot{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--charcoal-soft);}
+  .portfolio-shot iframe{
+    position:absolute;top:0;left:0;
+    width:400%;height:400%;
+    transform:scale(0.25);
+    transform-origin:0 0;
+    border:0;pointer-events:none;
+    background:var(--white);
+  }
+  .portfolio-shot .mark{font-size:15px;font-weight:800;letter-spacing:.06em;color:rgba(255,255,255,.5);}
+
+  /* ---------- PRELOADER ---------- */
+  #portfolio-loader{
+    position:fixed;inset:0;z-index:300;background:#000;
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  #portfolio-loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  #portfolio-loader svg{filter:drop-shadow(0 0 10px rgba(255,255,255,.45));}
+  .loader-arc{
+    transform-box:fill-box;transform-origin:center;
+    animation:loaderSpin 1.6s linear infinite;
+  }
+  .loader-globe-line{animation:loaderSpin 5s linear infinite;transform-box:fill-box;transform-origin:center;}
+  @keyframes loaderSpin{ to{ transform:rotate(360deg); } }
+  .portfolio-info{padding:26px 28px;}
+  .portfolio-info .tag{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px;display:block;}
+  .portfolio-info h3{font-size:19px;font-weight:700;margin-bottom:10px;}
+  .portfolio-info p{font-size:14.5px;color:var(--muted);margin-bottom:16px;}
+  .portfolio-values{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .portfolio-values li{font-size:12px;font-weight:600;color:var(--charcoal);background:var(--off-white);padding:6px 12px;border:1px solid var(--line);}
+  .portfolio-visit{font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+
+  .portfolio-empty{border:1px dashed var(--line);padding:40px 28px;text-align:center;color:var(--muted);font-size:14px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--charcoal);color:var(--white);padding:48px 0 32px;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .footer-mark{display:flex;align-items:center;gap:12px;}
+  .footer-mark .box{width:30px;height:30px;border:1.2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;letter-spacing:.08em;}
+  .footer-mark .word{font-size:11px;letter-spacing:.22em;color:var(--muted);}
+  .footer-contact{font-size:13.5px;color:var(--muted);}
+  .footer-contact a{font-weight:600;color:var(--white);}
+
+  @media(max-width:860px){
+    nav ul{display:none;}
+    .nav-burger{display:flex;}
+    .mobile-nav{display:block;}
+    .portfolio-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div id="portfolio-loader" aria-hidden="true">
+  <svg viewBox="0 0 200 200" width="150" height="150">
+    <defs>
+      <radialGradient id="sphereGrad" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#3d3d3d"/>
+        <stop offset="100%" stop-color="#0c0c0c"/>
+      </radialGradient>
+      <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
+      </linearGradient>
+    </defs>
+    <circle cx="100" cy="100" r="68" fill="url(#sphereGrad)" stroke="#2a2a2a" stroke-width="1"/>
+    <g class="loader-globe-line">
+      <ellipse cx="100" cy="100" rx="68" ry="20" fill="none" stroke="#333" stroke-width="1"/>
+      <ellipse cx="100" cy="100" rx="20" ry="68" fill="none" stroke="#333" stroke-width="1"/>
+      <ellipse cx="100" cy="100" rx="68" ry="44" fill="none" stroke="#2a2a2a" stroke-width="0.6"/>
+    </g>
+    <circle cx="100" cy="100" r="74" fill="none" stroke="url(#glowGrad)"
+      stroke-width="2.6" stroke-linecap="round" stroke-dasharray="55 460" class="loader-arc"/>
+  </svg>
+</div>
+
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-mark">
+      <div class="box">PRM</div>
+      <span class="word">STUDIO</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#quienes">Quiénes somos</a></li>
+        <li><a href="index.html#servicios">Servicios</a></li>
+        <li><a href="index.html#precios">Precios</a></li>
+        <li><a href="index.html#proceso">Proceso</a></li>
+        <li><a href="trabajos.html" class="active">Trabajos</a></li>
+        <li><a href="index.html#diagnostico">Diagnóstico gratis</a></li>
+      </ul>
+    </nav>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="nav-cta" href="tel:5545468074">55 45 46 80 74</a>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="index.html#quienes">Quiénes somos</a></li>
+      <li><a href="index.html#servicios">Servicios</a></li>
+      <li><a href="index.html#precios">Precios</a></li>
+      <li><a href="index.html#proceso">Proceso</a></li>
+      <li><a href="trabajos.html">Trabajos</a></li>
+      <li><a href="index.html#diagnostico">Diagnóstico gratis</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Trabajos entregados</span>
+    <h1>Páginas que ya construimos.</h1>
+    <p>Cada proyecto tiene su propia identidad, pensada para el negocio que representa — no plantillas repetidas. Esta lista crece con cada cliente nuevo.</p>
+  </div>
+</section>
+
+<section class="portfolio-section">
+  <div class="wrap">
+    <div class="portfolio-grid">
+
+      <a href="https://sonrisas-gallardo-web.vercel.app/" target="_blank" rel="noopener" class="portfolio-card">
+        <div class="portfolio-frame">
+          <div class="portfolio-dots"><span></span><span></span><span></span></div>
+          <div class="portfolio-shot">
+            <iframe src="https://sonrisas-gallardo-web.vercel.app/" loading="lazy" tabindex="-1" scrolling="no" title="Vista previa — Sonrisas Gallardo"></iframe>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <span class="tag">Consultorio dental</span>
+          <h3>Sonrisas Gallardo</h3>
+          <p>Consultorio dental enfocado en atención cercana y de confianza para toda la familia — desde revisiones de rutina hasta tratamientos más específicos.</p>
+          <ul class="portfolio-values">
+            <li>Confianza</li>
+            <li>Cercanía</li>
+            <li>Atención personalizada</li>
+          </ul>
+          <span class="portfolio-visit">Ver sitio →</span>
+        </div>
+      </a>
+
+      <a href="https://petcare-mascotas.vercel.app/" target="_blank" rel="noopener" class="portfolio-card">
+        <div class="portfolio-frame">
+          <div class="portfolio-dots"><span></span><span></span><span></span></div>
+          <div class="portfolio-shot">
+            <iframe src="https://petcare-mascotas.vercel.app/" loading="lazy" tabindex="-1" scrolling="no" title="Vista previa — PetCare Med"></iframe>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <span class="tag">Veterinaria</span>
+          <h3>PetCare Med</h3>
+          <p>Clínica veterinaria dedicada al cuidado responsable de mascotas, con un trato humano tanto para el paciente como para su dueño.</p>
+          <ul class="portfolio-values">
+            <li>Cuidado responsable</li>
+            <li>Trato humano</li>
+            <li>Profesionalismo</li>
+          </ul>
+          <span class="portfolio-visit">Ver sitio →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a href="index.html" class="footer-mark">
+      <div class="box">PRM</div>
+      <span class="word">STUDIO</span>
+    </a>
+    <div class="footer-contact">
+      <a href="tel:5545468074">55 45 46 80 74</a> · Atizapán y Cd. López Mateos
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const loader = document.getElementById('portfolio-loader');
+    const iframes = document.querySelectorAll('.portfolio-shot iframe');
+    if(!loader) return;
+    const total = iframes.length;
+    let loaded = 0;
+    function finish(){ loader.classList.add('hide'); }
+    if(total === 0){ finish(); return; }
+    iframes.forEach(f=>{
+      f.addEventListener('load', ()=>{
+        loaded++;
+        if(loaded >= total) finish();
+      });
+    });
+    setTimeout(finish, 3200); // salvaguarda por si algún sitio tarda o bloquea el embed
+  })();
+</script>
+<script>
+  (function(){
+    const btn = document.getElementById('navBurger');
+    const menu = document.getElementById('mobileNav');
+    if(!btn || !menu) return;
+    function closeMenu(){
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+    btn.addEventListener('click', ()=>{
+      const willOpen = !menu.classList.contains('open');
+      menu.classList.toggle('open', willOpen);
+      btn.classList.toggle('open', willOpen);
+      btn.setAttribute('aria-expanded', String(willOpen));
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+</body>
+</html>
